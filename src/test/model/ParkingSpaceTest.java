@@ -33,15 +33,19 @@ public class ParkingSpaceTest {
         ParkingSpot testparkingspot1 = new ParkingSpot("Spot1");
         ParkingSpot testparkingspot2 = new ParkingSpot("Spot2");
         ParkingSpot testparkingspot3 = new ParkingSpot("Spot3");
+        ParkingSpot testparkingspot4 = new ParkingSpot("Spot4");
         test.addParkingSpot(testparkingspot1);
         assertEquals(1, test.getParkingspots().size());
         test.addParkingSpot(testparkingspot2);
         assertEquals(2, test.getParkingspots().size());
         test.addParkingSpot(testparkingspot3);
         assertEquals(3, test.getParkingspots().size());
+        test.addParkingSpot(testparkingspot4);
+        assertEquals(4, test.getParkingspots().size());
         assertTrue(test.getParkingspots().contains(testparkingspot1));
         assertTrue(test.getParkingspots().contains(testparkingspot2));
         assertTrue(test.getParkingspots().contains(testparkingspot3));
+        assertTrue(test.getParkingspots().contains(testparkingspot4));
     }
 
     @Test

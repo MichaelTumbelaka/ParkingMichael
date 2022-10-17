@@ -27,16 +27,12 @@ public class ParkingSpot {
         parkingSpace.addParkingSpot(this);
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     //MODIFIES: this
-    //EFFECTS: if reserved, return false, if not then return true
+    //EFFECTS: if reserved it will return false, if not then it will return true
     public boolean setReservation(Reservation reservation) {
         int t;
         for (t = reservation.getTime(); t < reservation.getTime() + reservation.getDuration(); t++) {
-            if (reserved(t)) {
+            if (isReserved(t)) {
                 return false;
             } else {
                 reservations.set(t,reservation);
@@ -46,8 +42,8 @@ public class ParkingSpot {
         return true;
     }
 
-    //EFFECTS: return true if it is already reserved for the span of time
-    public boolean reserved(int t) {
+    //EFFECTS: return true if at the span of time is already reserved
+    public boolean isReserved(int t) {
         if (reservations.get(t) != null) {
             return true;
         }
@@ -63,35 +59,36 @@ public class ParkingSpot {
         return output;
     }
 
-    //EFFECTS: returns the time available for reservation
-    //         in the form : "[0 - 1], [9 - 17], [8]"
+    //EFFECTS: returns the time that is available for reservation
+    //         in the form : "(0 - 1), (9 - 17), (8)"
     public String whenAvailable() {
-        boolean flag = false;
-        int min = 0;
-        int max;
+        boolean status = false;
+        int minimum = 0;
+        int maximum;
         String output = "";
         for (int i = 0; i < 24; i++) {
-            if (!flag && reservations.get(i) == null) {
-                flag = true;
-                min = i;
+            if (!status && reservations.get(i) == null) {
+                status = true;
+                minimum = i;
             }
-            if (flag && (i == 23 || reservations.get(i + 1) != null)) {
-                flag = false;
-                max = i;
-                if (min == max) {
-                    output += "( " + max + " ), ";
+            if (status && (i == 23 || reservations.get(i + 1) != null)) {
+                status = false;
+                maximum = i;
+                if (minimum == maximum) {
+                    output = output + "( " + maximum + " ), ";
                 } else {
-                    output += "( " + min + " - " + max + " ), ";
+                    output = output + "( " + minimum + " - " + maximum + " ), ";
                 }
             }
         }
         return output.substring(0, output.length() - 2);
     }
 
-    //EFfECTS: return true if that time and duration is available
+    //EFFECTS: return true if it is available at that time and for some
+    //         amount of duration
     public boolean availability(Reservation reservation) {
         for (int i = reservation.getTime(); i < reservation.getTime() + reservation.getDuration(); i++) {
-            if (reserved(i)) {
+            if (isReserved(i)) {
                 return false;
             }
         }
@@ -100,6 +97,10 @@ public class ParkingSpot {
 
     public String getCode() {
         return code;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public ArrayList<Reservation> getReservations() {

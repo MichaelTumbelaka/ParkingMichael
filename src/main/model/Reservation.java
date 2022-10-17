@@ -6,8 +6,8 @@ public class Reservation {
     private int duration; //hours
     private int price;
 
-    // REQUIRES: 0 <= time <= 23, and duration >0 and duration + time >= 24
-    // EFFECTS: makes a reservation with a parkingspot, username, email, time of reservation, and duration
+    // REQUIRES: time between 0 and 23, and duration over 0 and duration + time >= 24
+    // EFFECTS: makes a reservation with a parkingspot, time of reservation, and duration
     public Reservation(ParkingSpot parkingSpot, int time, int duration) {
         this.parkingSpot = parkingSpot;
         this.time = time;
