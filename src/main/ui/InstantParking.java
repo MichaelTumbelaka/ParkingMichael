@@ -21,7 +21,7 @@ public class InstantParking {
     }
 
     // MODIFIES: this
-    // EFFECTS: processes user input
+    // EFFECTS: processes user input to determine next move
     private void runParking() {
         boolean keepGoing = true;
         String command = null;
@@ -44,7 +44,7 @@ public class InstantParking {
     }
 
     // MODIFIES: this
-    // EFFECTS: processes user command
+    // EFFECTS: processes user command of the parking app
     private void processCommand(String command) {
         if (command.equals("reserve")) {
             doReservation();
@@ -82,7 +82,7 @@ public class InstantParking {
         }
     }
 
-    // EFFECTS: displays menu of options to user
+    // EFFECTS: displays menu of options
     private void displayMenu() {
         System.out.println("\nChoice :");
         System.out.println("\tReserve : Make Reservation");
@@ -124,7 +124,7 @@ public class InstantParking {
 
 
     // MODIFIES: this
-    // EFFECTS: view the reservations that the user reserved
+    // EFFECTS: view the reservations that the user booked
     private void doViewReservation() {
         for (ParkingSpace parkingSpace : parkingspaces) {
             for (ParkingSpot parkingSpot : parkingSpace.getParkingspots()) {

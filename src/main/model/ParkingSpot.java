@@ -20,7 +20,7 @@ public class ParkingSpot {
     }
 
     //MODIFIES: this
-    //EFFECTS: sets the parkingLot and the price to this
+    //EFFECTS: sets the parkingSpace and the price to this
     public void setParkingSpace(ParkingSpace parkingSpace) {
         this.parkingSpace = parkingSpace;
         this.price = this.parkingSpace.getPrice();
@@ -50,7 +50,7 @@ public class ParkingSpot {
         return false;
     }
 
-    //EFFECTS: prints out the code and availability
+    //EFFECTS: prints the code and availability to choose
     public String printStats() {
         String output = "";
         output += this.code + ", ";
@@ -60,7 +60,7 @@ public class ParkingSpot {
     }
 
     //EFFECTS: returns the time that is available for reservation
-    //         in the form : "(0 - 1), (9 - 17), (8)"
+    //         in the form : "(6), (7 - 10)"
     public String whenAvailable() {
         boolean status = false;
         int minimum = 0;
@@ -75,9 +75,9 @@ public class ParkingSpot {
                 status = false;
                 maximum = i;
                 if (minimum == maximum) {
-                    output = output + "( " + maximum + " ), ";
+                    output = output + "(" + maximum + "), ";
                 } else {
-                    output = output + "( " + minimum + " - " + maximum + " ), ";
+                    output = output + "(" + minimum + " - " + maximum + "), ";
                 }
             }
         }
@@ -86,7 +86,7 @@ public class ParkingSpot {
 
     //EFFECTS: return true if it is available at that time and for some
     //         amount of duration
-    public boolean availability(Reservation reservation) {
+    public boolean isAvailable(Reservation reservation) {
         for (int i = reservation.getTime(); i < reservation.getTime() + reservation.getDuration(); i++) {
             if (isReserved(i)) {
                 return false;

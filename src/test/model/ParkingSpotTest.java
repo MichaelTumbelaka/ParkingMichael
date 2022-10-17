@@ -25,7 +25,7 @@ class ParkingSpotTest {
 
     @Test
     public void testPrintStats() {
-        assertEquals("A, availability: ( 0 - 23 )", test.printStats());
+        assertEquals("A, availability: (0 - 23)", test.printStats());
     }
 
     @Test
@@ -37,10 +37,10 @@ class ParkingSpotTest {
     public void testSetReservationEmpty(){
         Reservation testreservation = new Reservation(test, 1, 4);
         assertTrue(test.setReservation(testreservation));
-        assertTrue(test.reserved(1));
-        assertTrue(test.reserved(2));
-        assertTrue(test.reserved(3));
-        assertTrue(test.reserved(4));
+        assertTrue(test.isReserved(1));
+        assertTrue(test.isReserved(2));
+        assertTrue(test.isReserved(3));
+        assertTrue(test.isReserved(4));
     }
 
     @Test
@@ -63,33 +63,33 @@ class ParkingSpotTest {
     public void testAvailabilityReservation() {
         Reservation testreservation = new Reservation(test, 5, 3);
         test.setReservation(testreservation);
-        assertFalse(test.availability(testreservation));
+        assertFalse(test.isAvailable(testreservation));
         Reservation different = new Reservation(test, 1, 2);
-        assertTrue(test.availability(different));
+        assertTrue(test.isAvailable(different));
         Reservation union = new Reservation(test,4,3);
-        assertFalse(test.availability(union));
+        assertFalse(test.isAvailable(union));
     }
 
     @Test
     public void testReserved() {
         Reservation testreservation = new Reservation(test, 2, 2);
         test.setReservation(testreservation);
-        assertFalse(test.reserved(1));
-        assertTrue(test.reserved(2));
-        assertTrue(test.reserved(3));
-        assertFalse(test.reserved(4));
-        assertFalse(test.reserved(5));
+        assertFalse(test.isReserved(1));
+        assertTrue(test.isReserved(2));
+        assertTrue(test.isReserved(3));
+        assertFalse(test.isReserved(4));
+        assertFalse(test.isReserved(5));
     }
 
     @Test
     public void testWhenAvailable() {
-        assertEquals("( 0 - 23 )", test.whenAvailable());
+        assertEquals("(0 - 23)", test.whenAvailable());
     }
     @Test
     public void testWhenAvailableSimple() {
         Reservation testreservation = new Reservation(test, 5, 3);
         test.setReservation(testreservation);
-        assertEquals("( 0 - 4 ), ( 8 - 23 )", test.whenAvailable());
+        assertEquals("(0 - 4), (8 - 23)", test.whenAvailable());
     }
 
     @Test
@@ -100,7 +100,7 @@ class ParkingSpotTest {
         test.setReservation(testreservation1);
         test.setReservation(testreservation2);
         test.setReservation(testreservation3);
-        assertEquals("( 0 - 3 ), ( 5 - 12 ), ( 15 - 17 ), ( 21 - 23 )", test.whenAvailable());
+        assertEquals("(0 - 3), (5 - 12), (15 - 17), (21 - 23)", test.whenAvailable());
     }
 
     @Test
@@ -111,7 +111,7 @@ class ParkingSpotTest {
         test.setReservation(testreservation1);
         test.setReservation(testreservation2);
         test.setReservation(testreservation3);
-        assertEquals("( 0 - 3 ), ( 6 ), ( 8 - 18 ), ( 22 - 23 )", test.whenAvailable());
+        assertEquals("(0 - 3), (6), (8 - 18), (22 - 23)", test.whenAvailable());
     }
 
     @Test
