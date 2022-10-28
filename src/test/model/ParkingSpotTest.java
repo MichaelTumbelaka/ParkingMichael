@@ -123,5 +123,14 @@ class ParkingSpotTest {
         assertEquals(reservations, test.getReservations());
     }
 
+    @Test
+    public void testGetParkingSpace() {
+        ParkingSpace parkingSpace = new ParkingSpace("Space1", 5);
+        test.setParkingSpace(parkingSpace);
+        assertEquals(5, parkingSpace.getPrice());
+        assertEquals("Space1", test.getParkingSpace().getLabel());
+        assertEquals(5, test.getParkingSpace().getPrice());
+    }
+
 }
 

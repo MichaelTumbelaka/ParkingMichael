@@ -17,12 +17,10 @@ import java.util.stream.Stream;
 // Represents a reader that reads parking space from JSON data stored in file
 public class JsonReader {
     private String source;
-    //private List<ParkingSpace> parkingspaces;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
         this.source = source;
-        //this.parkingspaces = parkingspaces;
     }
 
     // EFFECTS: reads parking space from file and returns it;
@@ -40,7 +38,6 @@ public class JsonReader {
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
             stream.forEach(contentBuilder::append);
         }
-
         return contentBuilder.toString();
     }
 

@@ -50,6 +50,7 @@ class JsonWriterTest {
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralParking.json");
             writer.open();
             writer.write(parkingspaces);
+            writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterGeneralParking.json");
             parkingspaces = reader.read();
@@ -91,7 +92,7 @@ class JsonWriterTest {
 
     private List<ParkingSpace> init() {
         List<ParkingSpace> parkingspaces = new ArrayList<>();
-        ParkingSpace parkingspace1 = new ParkingSpace("Marine Drive", 4);
+        ParkingSpace parkingspace1 = new ParkingSpace("Marine Drive", 3);
         ParkingSpace parkingspace2 = new ParkingSpace("UBC", 5);
         ParkingSpace parkingspace3 = new ParkingSpace("SFU", 5);
         ParkingSpace parkingspace4 = new ParkingSpace("Joyce", 4);
