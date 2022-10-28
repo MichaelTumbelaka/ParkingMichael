@@ -1,6 +1,9 @@
 package model;
 
-public class Reservation {
+import org.json.JSONObject;
+import persistence.Saveable;
+
+public class Reservation implements Saveable {
     private ParkingSpot parkingSpot;
     private int time;
     private int duration; //hours
@@ -49,6 +52,14 @@ public class Reservation {
 
     public int getPrice() {
         return price;
+    }
+
+    @Override
+    public JSONObject toJsonObject() {
+        JSONObject json = new JSONObject();
+        json.put("time", time);
+        json.put("duration", duration);
+        return json;
     }
 }
 

@@ -1,8 +1,12 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Saveable;
+
 import java.util.ArrayList;
 
-public class ParkingSpot {
+public class ParkingSpot implements Saveable {
 
     private String code;
     private int price;
@@ -17,6 +21,10 @@ public class ParkingSpot {
         for (int t = 0; t < 24; t++) {
             reservations.add(null);
         }
+    }
+
+    public ParkingSpace getParkingSpace() {
+        return parkingSpace;
     }
 
     //MODIFIES: this
@@ -44,10 +52,7 @@ public class ParkingSpot {
 
     //EFFECTS: return true if at the span of time is already reserved
     public boolean isReserved(int t) {
-        if (reservations.get(t) != null) {
-            return true;
-        }
-        return false;
+        return reservations.get(t) != null;
     }
 
     //EFFECTS: prints the code and availability to choose
@@ -65,7 +70,7 @@ public class ParkingSpot {
         boolean status = false;
         int minimum = 0;
         int maximum;
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < 24; i++) {
             if (!status && reservations.get(i) == null) {
                 status = true;
@@ -75,9 +80,9 @@ public class ParkingSpot {
                 status = false;
                 maximum = i;
                 if (minimum == maximum) {
-                    output = output + "(" + maximum + "), ";
+                    output.append("(").append(maximum).append("), ");
                 } else {
-                    output = output + "(" + minimum + " - " + maximum + "), ";
+                    output.append("(").append(minimum).append(" - ").append(maximum).append("), ");
                 }
             }
         }
@@ -105,6 +110,24 @@ public class ParkingSpot {
 
     public ArrayList<Reservation> getReservations() {
         return reservations;
+    }
+
+    private JSONArray reservationsToJson() {
+        JSONArray array = new JSONArray();
+        for (Reservation reservation : reservations) {
+            if (reservation != null) {
+                array.put(reservation.toJsonObject());
+            }
+        }
+        return array;
+    }
+
+    @Override
+    public JSONObject toJsonObject() {
+        JSONObject json = new JSONObject();
+        json.put("code", code);
+        json.put("reservations", reservationsToJson());
+        return json;
     }
 }
 

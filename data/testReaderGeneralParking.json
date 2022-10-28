@@ -1,0 +1,73 @@
+{
+  "parkingspaces": [
+    {
+      "price": 4,
+      "parkingSpots": [
+        {
+          "code": "A1",
+          "reservations": [
+            {
+              "duration": 1,
+              "time": 5
+            }
+          ]
+        },
+        {
+          "code": "A2",
+          "reservations": []
+        },
+        {
+          "code": "A3",
+          "reservations": []
+        }
+      ],
+      "label": "Marine Drive"
+    },
+    {
+      "price": 3,
+      "parkingSpots": [
+        {
+          "code": "A1",
+          "reservations": []
+        },
+        {
+          "code": "A2",
+          "reservations": [
+            {
+              "duration": 1,
+              "time": 5
+            }
+          ]
+        },
+        {
+          "code": "A3",
+          "reservations": []
+        }
+      ],
+      "label": "Lougheed"
+    },
+    {
+      "price": 5,
+      "parkingSpots": [
+        {
+          "code": "A1",
+          "reservations": []
+        },
+        {
+          "code": "A2",
+          "reservations": []
+        },
+        {
+          "code": "A3",
+          "reservations": [
+            {
+              "duration": 1,
+              "time": 5
+            }
+          ]
+        }
+      ],
+      "label": "UBC"
+    }
+  ]
+}
