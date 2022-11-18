@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 // Bank teller application
 public class InstantParking {
-    private static final String JSON_STORE = "./data/parking.json";
+    public static final String JSON_STORE = "./data/parking.json";
     private Scanner input;
     private List<ParkingSpace> parkingspaces;
     private JsonWriter jsonWriter;

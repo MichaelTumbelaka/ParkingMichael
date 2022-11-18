@@ -9,3 +9,4 @@
 - As a user, I want to be able to save the details of my account
 - As a user, I want to be able to book more than one parking spot at different time and place
 - As a user, I want to be able to choose the time and place at ease
+- As a user, I want to cancel my reservation at any time

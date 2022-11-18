@@ -54,12 +54,14 @@ public class JsonReader {
         return parkingspaces;
     }
 
+    // EFFECTS: adds parkingspots to JSon
     private void addParkingSpots(ParkingSpace parkingSpace, JSONArray parkingSpots) {
         for (Object obj : parkingSpots) {
             addParkingSpot(parkingSpace, (JSONObject) obj);
         }
     }
 
+    // EFFECTS: adds parkingspot to JSon
     private void addParkingSpot(ParkingSpace parkingSpace, JSONObject obj) {
         ParkingSpot parkingSpot = new ParkingSpot(obj.getString("code"));
         parkingSpot.setParkingSpace(parkingSpace);
@@ -68,6 +70,7 @@ public class JsonReader {
         }
     }
 
+    // EFFECTS : adds reservation to JSon
     private void addReservation(ParkingSpot parkingSpot, JSONObject reservation) {
         int time = reservation.getInt("time");
         int duration = reservation.getInt("duration");
