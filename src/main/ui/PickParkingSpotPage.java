@@ -41,16 +41,16 @@ public class PickParkingSpotPage extends MainPage {
         loadLabel();
     }
 
-    //EFFECTS: loads title into screen
+    //EFFECTS: loads title to the screen
     protected void loadTitle() {
         JLabel title = new JLabel("Pick a Parking Spot in " + pickedparkingspace.getLabel());
-        Font font1 = new Font("Sans Serif", Font.BOLD, 30);
-        title.setFont(font1);
+        Font font = new Font("Sans Serif", Font.BOLD, 30);
+        title.setFont(font);
         title.setBounds(30,10,600,60);
         add(title);
     }
 
-    //EFFECTS: loads label into screen
+    //EFFECTS: loads label to the screen
     private void loadLabel() {
         JLabel time = new JLabel("Time:");
         time.setBounds(520,60,100,50);
@@ -61,7 +61,7 @@ public class PickParkingSpotPage extends MainPage {
     }
 
     //MODIFIES: this
-    //EFFECTS: loads list into screen
+    //EFFECTS: loads list to the screen
     private void loadList() {
         DefaultListModel<String> l1 = new DefaultListModel<>();
         for (ParkingSpot ps: pickedparkingspace.getParkingspots()) {
@@ -75,7 +75,7 @@ public class PickParkingSpotPage extends MainPage {
     }
 
     //MODIFIES: this
-    //EFFECTS: loads buttons into screen
+    //EFFECTS: loads buttons to the screen
     private void loadButton() {
         mainmenu = new JButton("Back");
         mainmenu.setBounds(100,320, 200, 80);
@@ -88,7 +88,7 @@ public class PickParkingSpotPage extends MainPage {
     }
 
     //MODIFIES: this
-    //EFFECTS: loads combo box into screen
+    //EFFECTS: loads combo box to the screen
     private void loadComboBox() {
         time = new JComboBox(availabletime);
         time.setBounds(520, 100, 50, 50);
