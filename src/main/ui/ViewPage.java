@@ -59,7 +59,7 @@ public class ViewPage extends MainPage {
     //EFFECTS: loads the buttons to the screen
     private void loadButton() {
         mainmenu = new JButton("Back");
-        mainmenu.setBounds(50,350,200,50);
+        mainmenu.setBounds(50,350,100,50);
         mainmenu.addActionListener(new ButtonHandler());
         add(mainmenu);
 
