@@ -14,7 +14,7 @@ public class ParkingSpaceTest {
 
     @Test
     public void testConstructor() {
-        for (ParkingSpot ps : test.getParkingspots()) {
+        for (ParkingSpot ps : test.getParkingSpots()) {
             assertNull(ps);
         }
         assertEquals(3, test.getPrice());
@@ -25,7 +25,7 @@ public class ParkingSpaceTest {
     public void testAddParkingSpot() {
         ParkingSpot testparkingspot = new ParkingSpot("test");
         test.addParkingSpot(testparkingspot);
-        assertTrue(test.getParkingspots().contains(testparkingspot));
+        assertTrue(test.getParkingSpots().contains(testparkingspot));
     }
 
     @Test
@@ -35,29 +35,29 @@ public class ParkingSpaceTest {
         ParkingSpot testparkingspot3 = new ParkingSpot("Spot3");
         ParkingSpot testparkingspot4 = new ParkingSpot("Spot4");
         test.addParkingSpot(testparkingspot1);
-        assertEquals(1, test.getParkingspots().size());
+        assertEquals(1, test.getParkingSpots().size());
         test.addParkingSpot(testparkingspot2);
-        assertEquals(2, test.getParkingspots().size());
+        assertEquals(2, test.getParkingSpots().size());
         test.addParkingSpot(testparkingspot3);
-        assertEquals(3, test.getParkingspots().size());
+        assertEquals(3, test.getParkingSpots().size());
         test.addParkingSpot(testparkingspot4);
-        assertEquals(4, test.getParkingspots().size());
-        assertTrue(test.getParkingspots().contains(testparkingspot1));
-        assertTrue(test.getParkingspots().contains(testparkingspot2));
-        assertTrue(test.getParkingspots().contains(testparkingspot3));
-        assertTrue(test.getParkingspots().contains(testparkingspot4));
+        assertEquals(4, test.getParkingSpots().size());
+        assertTrue(test.getParkingSpots().contains(testparkingspot1));
+        assertTrue(test.getParkingSpots().contains(testparkingspot2));
+        assertTrue(test.getParkingSpots().contains(testparkingspot3));
+        assertTrue(test.getParkingSpots().contains(testparkingspot4));
     }
 
     @Test
     public void testListParkingSpotBase() {
-        assertEquals("", test.listParkingSpots());
+        assertEquals("", test.displayParkingSpots());
     }
 
     @Test
     public void testListParkingSpotSimple() {
         ParkingSpot testparkingspot = new ParkingSpot("Spot");
         test.addParkingSpot(testparkingspot);
-        assertEquals("Spot, availability: ( 0 - 23 )\n", test.listParkingSpots());
+        assertEquals("Spot, availability: ( 0 - 23 )\n", test.displayParkingSpots());
     }
 
     @Test
@@ -69,8 +69,8 @@ public class ParkingSpaceTest {
         String expected = "";
         expected += "Spot1, availability: ( 0 - 23 )\n";
         expected += "Spot2, availability: ( 0 - 23 )\n";
-        System.out.println(test.listParkingSpots());
-        assertEquals(expected, test.listParkingSpots());
+        System.out.println(test.displayParkingSpots());
+        assertEquals(expected, test.displayParkingSpots());
     }
 }
 

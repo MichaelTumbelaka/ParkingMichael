@@ -8,17 +8,17 @@ import java.util.ArrayList;
 
 public class ParkingSpot implements Saveable {
 
-    private String code;
+    private String id;
     private int price;
     private ParkingSpace parkingSpace;
 
     private ArrayList<Reservation> reservations;
 
-    //EFFECTS: make a new parking spot with a code identifier and empty reservation
-    public ParkingSpot(String code) {
-        this.code = code;
+    //EFFECTS: make a new parking spot with an identifier and empty reservation
+    public ParkingSpot(String id) {
+        this.id = id;
         reservations = new ArrayList<>();
-        for (int t = 0; t < 24; t++) {
+        for (int i = 0; i < 24; i++) {
             reservations.add(null);
         }
     }
@@ -38,47 +38,49 @@ public class ParkingSpot implements Saveable {
     //MODIFIES: this
     //EFFECTS: if reserved it will return false, if not then it will return true
     public boolean setReservation(Reservation reservation) {
-        int t;
-        for (t = reservation.getTime(); t < reservation.getTime() + reservation.getDuration(); t++) {
-            if (isReserved(t)) {
+        int time;
+        for (time = reservation.getTime(); time < reservation.getTime() + reservation.getDuration(); time++) {
+            if (isReserved(time)) {
                 return false;
             } else {
-                reservations.set(t,reservation);
-                reservations.set(t, reservation);
+                reservations.set(time,reservation);
+                reservations.set(time, reservation);
             }
         }
+        Event e = new Event("New Reservation is made to the parking spot");
+        EventLog.getInstance().logEvent(e);
         return true;
     }
 
     //EFFECTS: return true if at the span of time is already reserved
-    public boolean isReserved(int t) {
-        return reservations.get(t) != null;
+    public boolean isReserved(int time) {
+        return reservations.get(time) != null;
     }
 
     //EFFECTS: prints the code and availability to choose
-    public String printStats() {
-        String output = "";
-        output += this.code + ", ";
-        output += "availability: " + this.whenAvailable();
+    public String displayStats() {
+        String display = "";
+        display += this.id + ", ";
+        display += "availability: " + this.displayAvailability();
 
-        return output;
+        return display;
     }
 
     //EFFECTS: returns the time that is available for reservation
     //         in the form : "(6), (7 - 10)"
-    public String whenAvailable() {
+    public String displayAvailability() {
         boolean status = false;
         int minimum = 0;
         int maximum;
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i < 24; i++) {
-            if (!status && reservations.get(i) == null) {
+        for (int time = 0; time < 24; time++) {
+            if (!status && reservations.get(time) == null) {
                 status = true;
-                minimum = i;
+                minimum = time;
             }
-            if (status && (i == 23 || reservations.get(i + 1) != null)) {
+            if (status && (time == 23 || reservations.get(time + 1) != null)) {
                 status = false;
-                maximum = i;
+                maximum = time;
                 if (minimum == maximum) {
                     output.append("(").append(maximum).append("), ");
                 } else {
@@ -100,8 +102,8 @@ public class ParkingSpot implements Saveable {
         return true;
     }
 
-    public String getCode() {
-        return code;
+    public String getId() {
+        return id;
     }
 
     public int getPrice() {
@@ -125,7 +127,7 @@ public class ParkingSpot implements Saveable {
     @Override
     public JSONObject toJsonObject() {
         JSONObject json = new JSONObject();
-        json.put("code", code);
+        json.put("code", id);
         json.put("reservations", reservationsToJson());
         return json;
     }

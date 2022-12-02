@@ -6,7 +6,6 @@ import model.Reservation;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,11 +46,11 @@ class JsonReaderTest {
             assertEquals(3, parkingspaces.size());
             int count = 0;
             for (ParkingSpace parkingSpace : parkingspaces) {
-                for (ParkingSpot parkingSpot : parkingSpace.getParkingspots()) {
+                for (ParkingSpot parkingSpot : parkingSpace.getParkingSpots()) {
                     String code = "";
                     for (Reservation reservation : parkingSpot.getReservations()) {
                         if (reservation != null) {
-                            if (!code.equals(reservation.getParkingSpot().getCode())) {
+                            if (!code.equals(reservation.getParkingSpot().getId())) {
                                 count++;
                                 assertEquals(5, reservation.getTime());
                                 assertEquals(1, reservation.getDuration());

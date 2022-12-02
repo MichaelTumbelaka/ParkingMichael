@@ -10,16 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.List;
 
 public class ViewPage extends MainPage {
     private JTable table;
-    private JButton mainmenu;
+    private JButton mainMenu;
     private JButton cancel;
 
     //EFFECTS : creates a page that lets the user view their reservation
-    public ViewPage(List<ParkingSpace> parkingspaces) {
-        super(parkingspaces);
+    public ViewPage(List<ParkingSpace> parkingSpaces) {
+        super(parkingSpaces);
         loadTitle();
         loadTable();
         loadButton();
@@ -38,9 +37,9 @@ public class ViewPage extends MainPage {
 
     //EFFECTS : loads the label to the screen
     private void loadLabel() {
-        JLabel cancelreservation = new JLabel("Cancel any reservation? (pick the id)");
-        cancelreservation.setBounds(550,100,400,50);
-        add(cancelreservation);
+        JLabel cancelLabel = new JLabel("Cancel any reservation? (pick the id)");
+        cancelLabel.setBounds(550,100,400,50);
+        add(cancelLabel);
     }
 
     //MODIFIES : this
@@ -58,10 +57,10 @@ public class ViewPage extends MainPage {
     //MODIFIES: this
     //EFFECTS: loads the buttons to the screen
     private void loadButton() {
-        mainmenu = new JButton("Back");
-        mainmenu.setBounds(50,350,100,50);
-        mainmenu.addActionListener(new ButtonHandler());
-        add(mainmenu);
+        mainMenu = new JButton("Back");
+        mainMenu.setBounds(50,350,100,50);
+        mainMenu.addActionListener(new ButtonHandler());
+        add(mainMenu);
 
         cancel = new JButton("Cancel");
         cancel.setBounds(550,220,100,50);
@@ -69,15 +68,15 @@ public class ViewPage extends MainPage {
         add(cancel);
     }
 
-    private void doViewReservation(java.util.List<Reservation> reservations) {
-        for (ParkingSpace parkingSpace: parkingspaces) {
-            for (ParkingSpot parkingSpot: parkingSpace.getParkingspots()) {
-                String code = "";
+    private void viewReservation(java.util.List<Reservation> reservations) {
+        for (ParkingSpace parkingSpace: parkingSpaces) {
+            for (ParkingSpot parkingSpot: parkingSpace.getParkingSpots()) {
+                String id = "";
                 for (Reservation reservation: parkingSpot.getReservations()) {
                     if (reservation != null) {
-                        if (!code.equals(reservation.getParkingSpot().getCode())) {
+                        if (!id.equals(reservation.getParkingSpot().getId())) {
                             reservations.add(reservation);
-                            code = reservation.getParkingSpot().getCode();
+                            id = reservation.getParkingSpot().getId();
                         }
                     }
                 }
@@ -88,13 +87,13 @@ public class ViewPage extends MainPage {
     //EFFECTS: parses the reservation into readable format to choose
     private String[][] parseReservation() {
         java.util.List<Reservation> reservations = new ArrayList<>();
-        doViewReservation(reservations);
+        viewReservation(reservations);
         String[][] data = new String[reservations.size()][5];
         int id = 1;
         for (Reservation current: reservations) {
             String[] curparse = {
                     Integer.toString(id),
-                    current.getParkingSpot().getCode(),
+                    current.getParkingSpot().getId(),
                     Integer.toString(current.getTime()),
                     Integer.toString(current.getDuration())
             };
@@ -108,13 +107,13 @@ public class ViewPage extends MainPage {
     private class ButtonHandler implements ActionListener {
         //EFFECTS: handle every button action in this page
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == mainmenu) {
+            if (e.getSource() == mainMenu) {
                 setVisible(false);
-                new MainMenu(parkingspaces);
+                new MainMenu(parkingSpaces);
             } else if (e.getSource() == cancel) {
                 if (table.getSelectedRow() != -1) {
                     List<Reservation> reservations = new ArrayList<>();
-                    doViewReservation(reservations);
+                    viewReservation(reservations);
                     int row = table.getSelectedRow();
                     Integer id = Integer.parseInt((String) table.getModel().getValueAt(row, 0));
                     Reservation selectedreservation = reservations.get(id - 1);

@@ -18,10 +18,10 @@ import java.util.Scanner;
 // Bank teller application
 public class InstantParking {
     public static final String JSON_STORE = "./data/parking.json";
-    private Scanner input;
-    private List<ParkingSpace> parkingspaces;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private Scanner scanner;
+    private List<ParkingSpace> parkingSpaces;
+    private JsonWriter writer;
+    private JsonReader reader;
 
     // EFFECTS: runs the parking application
     public InstantParking() {
@@ -29,10 +29,10 @@ public class InstantParking {
     }
 
     private void initialParking() {
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
+        writer = new JsonWriter(JSON_STORE);
+        reader = new JsonReader(JSON_STORE);
         try {
-            parkingspaces = jsonReader.read();
+            parkingSpaces = reader.read();
             System.out.println("Loaded successfully from " + JSON_STORE);
             runParking(true);
         } catch (IOException e) {
@@ -49,7 +49,7 @@ public class InstantParking {
     // EFFECTS: processes user input
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void runParking(boolean loaded) {
-        input = new Scanner(System.in);
+        scanner = new Scanner(System.in);
         boolean keepGoing = true;
         String command;
 
@@ -59,7 +59,7 @@ public class InstantParking {
 
         while (keepGoing) {
             displayMenu();
-            command = input.nextLine();
+            command = scanner.nextLine();
             command = command.toLowerCase();
 
             if (command.equals("exit")) {
@@ -70,9 +70,9 @@ public class InstantParking {
         }
 
         try {
-            jsonWriter.open();
-            jsonWriter.write(parkingspaces);
-            jsonWriter.close();
+            writer.open();
+            writer.write(parkingSpaces);
+            writer.close();
             System.out.println("Saved parking spaces to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
@@ -86,13 +86,13 @@ public class InstantParking {
     private void processCommand(String command) {
         switch (command) {
             case "reserve":
-                doReservation();
+                reserve();
                 break;
             case "view reservation":
-                doViewReservation();
+                viewReservation();
                 break;
             case "cancel reservation":
-                doCancelReservation();
+                cancelReservation();
                 break;
             default:
                 System.out.println("Selection not valid...");
@@ -103,16 +103,16 @@ public class InstantParking {
     // MODIFIES: this
     // EFFECTS: initializes accounts
     private void init() {
-        parkingspaces = new ArrayList<>();
-        input = new Scanner(System.in);
+        parkingSpaces = new ArrayList<>();
+        scanner = new Scanner(System.in);
         ParkingSpace parkingspace1 = new ParkingSpace("Marine Drive", 3);
         ParkingSpace parkingspace2 = new ParkingSpace("UBC", 5);
         ParkingSpace parkingspace3 = new ParkingSpace("SFU", 5);
         ParkingSpace parkingspace4 = new ParkingSpace("Joyce", 4);
-        parkingspaces.add(parkingspace1);
-        parkingspaces.add(parkingspace3);
-        parkingspaces.add(parkingspace4);
-        parkingspaces.add(parkingspace2);
+        parkingSpaces.add(parkingspace1);
+        parkingSpaces.add(parkingspace3);
+        parkingSpaces.add(parkingspace4);
+        parkingSpaces.add(parkingspace2);
         for (int i = 0; i < 3; i++) {
             ParkingSpot parkingSpot1 = new ParkingSpot("X" + (i + 1));
             parkingspace1.addParkingSpot(parkingSpot1);
@@ -136,24 +136,24 @@ public class InstantParking {
 
     // MODIFIES: this
     // EFFECTS: makes a new reservation
-    private void doReservation() {
-        input = new Scanner(System.in);
+    private void reserve() {
+        scanner = new Scanner(System.in);
         System.out.println("Choose Parking Space:");
-        for (ParkingSpace parkingSpace : parkingspaces) {
+        for (ParkingSpace parkingSpace : parkingSpaces) {
             System.out.println(parkingSpace.getLabel() + ": " + parkingSpace.getPrice());
         }
-        String parkingSpaceLabel = input.nextLine();
-        for (ParkingSpace parkingSpace : parkingspaces) {
+        String parkingSpaceLabel = scanner.nextLine();
+        for (ParkingSpace parkingSpace : parkingSpaces) {
             if (parkingSpace.getLabel().equals(parkingSpaceLabel)) {
                 System.out.println("Choose Parking Spot:");
-                System.out.println(parkingSpace.listParkingSpots());
-                String parkingSpotLabel = input.nextLine();
-                int time = input.nextInt();
-                input.nextLine();
-                int duration = input.nextInt();
-                input.nextLine();
-                for (ParkingSpot parkingSpot : parkingSpace.getParkingspots()) {
-                    if (parkingSpotLabel.equals(parkingSpot.getCode())) {
+                System.out.println(parkingSpace.displayParkingSpots());
+                String parkingSpotLabel = scanner.nextLine();
+                int time = scanner.nextInt();
+                scanner.nextLine();
+                int duration = scanner.nextInt();
+                scanner.nextLine();
+                for (ParkingSpot parkingSpot : parkingSpace.getParkingSpots()) {
+                    if (parkingSpotLabel.equals(parkingSpot.getId())) {
                         Reservation reservation = new Reservation(parkingSpot, time, duration);
                         parkingSpot.setReservation(reservation);
                     }
@@ -166,16 +166,16 @@ public class InstantParking {
 
     // MODIFIES: this
     // EFFECTS: view the reservations that the user reserved
-    private void doViewReservation() {
-        for (ParkingSpace parkingSpace : parkingspaces) {
-            for (ParkingSpot parkingSpot : parkingSpace.getParkingspots()) {
+    private void viewReservation() {
+        for (ParkingSpace parkingSpace : parkingSpaces) {
+            for (ParkingSpot parkingSpot : parkingSpace.getParkingSpots()) {
                 String code = "";
                 for (Reservation reservation : parkingSpot.getReservations()) {
                     if (reservation != null) {
-                        if (!code.equals(reservation.getParkingSpot().getCode())) {
+                        if (!code.equals(reservation.getParkingSpot().getId())) {
                             System.out.println(parkingSpace.getLabel());
                             System.out.println(reservation);
-                            code = reservation.getParkingSpot().getCode();
+                            code = reservation.getParkingSpot().getId();
                         }
                     }
                 }
@@ -186,11 +186,11 @@ public class InstantParking {
     // MODIFIES: this
     // EFFECTS: cancels the reservation the user chooses
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
-    private void doCancelReservation() {
-        input = new Scanner(System.in);
+    private void cancelReservation() {
+        scanner = new Scanner(System.in);
         List<Reservation> reservationList = new ArrayList<>();
-        for (ParkingSpace parkingSpace : parkingspaces) {
-            for (ParkingSpot parkingSpot : parkingSpace.getParkingspots()) {
+        for (ParkingSpace parkingSpace : parkingSpaces) {
+            for (ParkingSpot parkingSpot : parkingSpace.getParkingSpots()) {
                 for (Reservation reservation : parkingSpot.getReservations()) {
                     if (!reservationList.contains(reservation)) {
                         reservationList.add(reservation);
@@ -207,8 +207,8 @@ public class InstantParking {
             }
         }
         System.out.println("Which reservation do you want to cancel? 0-" + (reservationList.size() - 1));
-        int choice = input.nextInt();
-        input.nextLine();
+        int choice = scanner.nextInt();
+        scanner.nextLine();
         reservationList.get(choice).cancelReservation();
     }
 }

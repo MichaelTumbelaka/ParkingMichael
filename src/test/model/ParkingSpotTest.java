@@ -25,12 +25,12 @@ class ParkingSpotTest {
 
     @Test
     public void testPrintStats() {
-        assertEquals("A, availability: (0 - 23)", test.printStats());
+        assertEquals("A, availability: (0 - 23)", test.displayStats());
     }
 
     @Test
     public void testConstructor() {
-        assertEquals("A", test.getCode());
+        assertEquals("A", test.getId());
     }
 
     @Test
@@ -83,13 +83,13 @@ class ParkingSpotTest {
 
     @Test
     public void testWhenAvailable() {
-        assertEquals("(0 - 23)", test.whenAvailable());
+        assertEquals("(0 - 23)", test.displayAvailability());
     }
     @Test
     public void testWhenAvailableSimple() {
         Reservation testreservation = new Reservation(test, 5, 3);
         test.setReservation(testreservation);
-        assertEquals("(0 - 4), (8 - 23)", test.whenAvailable());
+        assertEquals("(0 - 4), (8 - 23)", test.displayAvailability());
     }
 
     @Test
@@ -100,7 +100,7 @@ class ParkingSpotTest {
         test.setReservation(testreservation1);
         test.setReservation(testreservation2);
         test.setReservation(testreservation3);
-        assertEquals("(0 - 3), (5 - 12), (15 - 17), (21 - 23)", test.whenAvailable());
+        assertEquals("(0 - 3), (5 - 12), (15 - 17), (21 - 23)", test.displayAvailability());
     }
 
     @Test
@@ -111,7 +111,7 @@ class ParkingSpotTest {
         test.setReservation(testreservation1);
         test.setReservation(testreservation2);
         test.setReservation(testreservation3);
-        assertEquals("(0 - 3), (6), (8 - 18), (22 - 23)", test.whenAvailable());
+        assertEquals("(0 - 3), (6), (8 - 18), (22 - 23)", test.displayAvailability());
     }
 
     @Test

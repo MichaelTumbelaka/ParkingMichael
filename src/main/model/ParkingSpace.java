@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class ParkingSpace implements Saveable {
     private String label;
     private int price;
-    private ArrayList<ParkingSpot> parkingspots;
+    private ArrayList<ParkingSpot> parkingSpots;
 
     //MODIFIES: this
     //EFFECTS: makes an empty list of a parking spots with a price and a label description for each of it
     public ParkingSpace(String label, int price) {
-        parkingspots = new ArrayList<>();
+        parkingSpots = new ArrayList<>();
         this.label = label;
         this.price = price;
     }
@@ -22,28 +22,28 @@ public class ParkingSpace implements Saveable {
     //MODIFIES: this
     //EFFECTS: add a Parking Spot to this
     public void addParkingSpot(ParkingSpot parkingSpot) {
-        if (!this.parkingspots.contains(parkingSpot)) {
-            parkingspots.add(parkingSpot);
+        if (!this.parkingSpots.contains(parkingSpot)) {
+            parkingSpots.add(parkingSpot);
             parkingSpot.setParkingSpace(this);
         }
     }
 
     //EFFECTS: make a list of the parking spots
-    public String listParkingSpots() {
-        StringBuilder output = new StringBuilder();
-        for (ParkingSpot parking: parkingspots) {
-            output.append(parking.printStats());
-            output.append("\n");
+    public String displayParkingSpots() {
+        StringBuilder display = new StringBuilder();
+        for (ParkingSpot parking: parkingSpots) {
+            display.append(parking.displayStats());
+            display.append("\n");
         }
-        return output.toString();
+        return display.toString();
     }
 
     public String getLabel() {
         return label;
     }
 
-    public ArrayList<ParkingSpot> getParkingspots() {
-        return parkingspots;
+    public ArrayList<ParkingSpot> getParkingSpots() {
+        return parkingSpots;
     }
 
     public int getPrice() {
@@ -62,7 +62,7 @@ public class ParkingSpace implements Saveable {
 
     private JSONArray parkingSpotsToJson() {
         JSONArray array = new JSONArray();
-        for (ParkingSpot ps : parkingspots) {
+        for (ParkingSpot ps : parkingSpots) {
             array.put(ps.toJsonObject());
         }
         return array;

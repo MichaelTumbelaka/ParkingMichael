@@ -57,11 +57,11 @@ class JsonWriterTest {
             assertEquals(4, parkingspaces.size());
             int count = 0;
             for (ParkingSpace parkingSpace : parkingspaces) {
-                for (ParkingSpot parkingSpot : parkingSpace.getParkingspots()) {
+                for (ParkingSpot parkingSpot : parkingSpace.getParkingSpots()) {
                     String code = "";
                     for (Reservation reservation : parkingSpot.getReservations()) {
                         if (reservation != null) {
-                            if (!code.equals(reservation.getParkingSpot().getCode())) {
+                            if (!code.equals(reservation.getParkingSpot().getId())) {
                                 count++;
                                 assertEquals(1, reservation.getTime());
                                 assertEquals(1, reservation.getDuration());
@@ -79,13 +79,13 @@ class JsonWriterTest {
 
 
     private void addReservations(List<ParkingSpace> parkingspaces) {
-        ParkingSpot parkingSpotOne = parkingspaces.get(0).getParkingspots().get(0);
+        ParkingSpot parkingSpotOne = parkingspaces.get(0).getParkingSpots().get(0);
         Reservation reservationOne = new Reservation(parkingSpotOne, 1, 1);
         parkingSpotOne.setReservation(reservationOne);
-        ParkingSpot parkingSpotTwo = parkingspaces.get(1).getParkingspots().get(1);
+        ParkingSpot parkingSpotTwo = parkingspaces.get(1).getParkingSpots().get(1);
         Reservation reservationTwo = new Reservation(parkingSpotOne, 1, 1);
         parkingSpotTwo.setReservation(reservationTwo);
-        ParkingSpot parkingSpotThree = parkingspaces.get(2).getParkingspots().get(2);
+        ParkingSpot parkingSpotThree = parkingspaces.get(2).getParkingSpots().get(2);
         Reservation reservationThree = new Reservation(parkingSpotThree, 1, 1);
         parkingSpotThree.setReservation(reservationThree);
     }

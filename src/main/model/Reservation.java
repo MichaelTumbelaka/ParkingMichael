@@ -10,7 +10,7 @@ public class Reservation implements Saveable {
     private int price;
 
     // REQUIRES: time between 0 and 23, and duration over 0 and duration + time >= 24
-    // EFFECTS: makes a reservation with a parkingspot, time of reservation, and duration
+    // EFFECTS: makes a reservation with a parking spot, time of reservation, and duration
     public Reservation(ParkingSpot parkingSpot, int time, int duration) {
         this.parkingSpot = parkingSpot;
         this.time = time;
@@ -21,21 +21,23 @@ public class Reservation implements Saveable {
     @Override
     //EFFECTS: returns reservation stats
     public String toString() {
-        String output = "";
-        output += "Parking Spot: " + this.parkingSpot.getCode() + "\n";
-        output += "Time: " + getTime() + "\n";
-        output += "Duration: " + getDuration() + "\n";
-        output += "\n";
-        return output;
+        String display = "";
+        display += "Parking Spot: " + this.parkingSpot.getId() + "\n";
+        display += "Time: " + getTime() + "\n";
+        display += "Duration: " + getDuration() + "\n";
+        display += "\n";
+        return display;
     }
 
 
     //MODIFIES: this
     //EFFECTS: cancel the reservation from the parking spot.
     public void  cancelReservation() {
-        for (int t = time; t < time + duration; t++) {
-            this.parkingSpot.getReservations().set(t, null);
+        for (int time = this.time; time < this.time + duration; time++) {
+            this.parkingSpot.getReservations().set(time, null);
         }
+        Event e = new Event("The Reservation is canceled");
+        EventLog.getInstance().logEvent(e);
     }
 
     public int getTime() {

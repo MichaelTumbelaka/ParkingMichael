@@ -14,8 +14,8 @@ public class MainMenu extends MainPage {
     private JButton save;
 
     //EFFECTS : creates a main page that the user can view, reserve, and deposit
-    public MainMenu(List<ParkingSpace> parkingspaces) {
-        super(parkingspaces);
+    public MainMenu(List<ParkingSpace> parkingSpaces) {
+        super(parkingSpaces);
         loadTitle();
         loadButtons();
         loadImage();
@@ -65,12 +65,12 @@ public class MainMenu extends MainPage {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == view) {
                 setVisible(false);
-                new ViewPage(parkingspaces);
+                new ViewPage(parkingSpaces);
             } else if (e.getSource() == reserve) {
                 setVisible(false);
-                new ReservePage(parkingspaces);
+                new ReservePage(parkingSpaces);
             } else if (e.getSource() == save) {
-                saveAccounts();
+                saveParkingSpaces();
             }
         }
     }

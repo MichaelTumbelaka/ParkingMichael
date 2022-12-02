@@ -12,11 +12,11 @@ public class ReservePage extends MainPage {
 
     private JList<String> list;
     private JButton choose;
-    private JButton mainmenu;
+    private JButton mainMenu;
 
     //EFFECTS : creates a page for the user to pick parking lot for the reservation
-    public ReservePage(List<ParkingSpace> parkingspaces) {
-        super(parkingspaces);
+    public ReservePage(List<ParkingSpace> parkingSpaces) {
+        super(parkingSpaces);
         loadTitle();
         loadList();
         loadButton();
@@ -35,7 +35,7 @@ public class ReservePage extends MainPage {
     //EFFECTS : loads the list to the screen
     private void loadList() {
         DefaultListModel<String> list1 = new DefaultListModel<>();
-        for (ParkingSpace ps : parkingspaces) {
+        for (ParkingSpace ps : parkingSpaces) {
             list1.addElement(ps.getLabel() + ", " + ps.getPrice() + "$/hour");
         }
         list = new JList<>(list1);
@@ -52,16 +52,16 @@ public class ReservePage extends MainPage {
         choose.setBounds(520, 170, 200, 70);
         choose.addActionListener(new ButtonHandler());
         add(choose);
-        mainmenu = new JButton("Back");
-        mainmenu.setBounds(100, 550, 200, 70);
-        mainmenu.addActionListener(new ButtonHandler());
-        add(mainmenu);
+        mainMenu = new JButton("Back");
+        mainMenu.setBounds(100, 550, 200, 70);
+        mainMenu.addActionListener(new ButtonHandler());
+        add(mainMenu);
 
     }
 
     //EFFECTS : finds a ParkingSpace from given name
     private ParkingSpace findParkingSpace(String name) {
-        for (ParkingSpace ps : parkingspaces) {
+        for (ParkingSpace ps : parkingSpaces) {
             if (ps.getLabel().equals(name)) {
                 return ps;
             }
@@ -74,15 +74,15 @@ public class ReservePage extends MainPage {
         //EFFECTS : handle every button action in this page
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == mainmenu) {
+            if (e.getSource() == mainMenu) {
                 setVisible(false);
-                new MainMenu(parkingspaces);
+                new MainMenu(parkingSpaces);
             } else if (e.getSource() == choose) {
                 if (list.getSelectedIndex() != -1) {
                     String selectedName = list.getSelectedValue().split(",")[0];
                     ParkingSpace ps = findParkingSpace(selectedName);
                     setVisible(false);
-                    new PickParkingSpotPage(parkingspaces, ps);
+                    new PickParkingSpotPage(parkingSpaces, ps);
                 }
             }
         }
