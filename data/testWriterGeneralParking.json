@@ -1,0 +1,83 @@
+{"parkingspaces": [
+    {
+        "price": 3,
+        "parkingSpots": [
+            {
+                "code": "X1",
+                "reservations": [{
+                    "duration": 1,
+                    "time": 1
+                }]
+            },
+            {
+                "code": "X2",
+                "reservations": []
+            },
+            {
+                "code": "X3",
+                "reservations": []
+            }
+        ],
+        "label": "Marine Drive"
+    },
+    {
+        "price": 5,
+        "parkingSpots": [
+            {
+                "code": "X1",
+                "reservations": []
+            },
+            {
+                "code": "X2",
+                "reservations": [{
+                    "duration": 1,
+                    "time": 1
+                }]
+            },
+            {
+                "code": "X3",
+                "reservations": []
+            }
+        ],
+        "label": "UBC"
+    },
+    {
+        "price": 5,
+        "parkingSpots": [
+            {
+                "code": "X1",
+                "reservations": []
+            },
+            {
+                "code": "X2",
+                "reservations": []
+            },
+            {
+                "code": "X3",
+                "reservations": [{
+                    "duration": 1,
+                    "time": 1
+                }]
+            }
+        ],
+        "label": "SFU"
+    },
+    {
+        "price": 4,
+        "parkingSpots": [
+            {
+                "code": "X1",
+                "reservations": []
+            },
+            {
+                "code": "X2",
+                "reservations": []
+            },
+            {
+                "code": "X3",
+                "reservations": []
+            }
+        ],
+        "label": "Joyce"
+    }
+]}

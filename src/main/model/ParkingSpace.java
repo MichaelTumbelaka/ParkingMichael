@@ -6,6 +6,8 @@ import persistence.Saveable;
 
 import java.util.ArrayList;
 
+import static javax.print.attribute.standard.MediaSizeName.A;
+
 public class ParkingSpace implements Saveable {
     private String label;
     private int price;
@@ -66,6 +68,23 @@ public class ParkingSpace implements Saveable {
             array.put(ps.toJsonObject());
         }
         return array;
+    }
+
+    void playList(vector<char> & A) {
+        int n = .size();
+        int u = ????; // line 3 RHS -- enter below!!
+        int w = -1;
+        int v = n;
+        while (u < v){ // line 6
+            if (A[u] == 'K') u++;
+            else if (A[u] == 'T') {
+                swap(A[u],A[w+1]); // line 9
+                w++; u++;
+            } else { // A[u] == other
+                swap(A[u],A[v-1]); // line 12
+                v--;
+            }
+        } // line 15
     }
 
 }
